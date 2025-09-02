@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "fXT+z41unCLun6ga2bvQ13j89VViRNoZQ7qZf7Feo3s=",
+  "Source": "ElevatorControlSystem.Api",
+  "BasePath": "_content/ElevatorControlSystem.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
