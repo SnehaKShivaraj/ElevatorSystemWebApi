@@ -1,0 +1,29 @@
+# Node / Angular
+**/node_modules/
+**/dist/
+**/out-tsc/
+
+# .NET
+**/bin/
+**/obj/
+*.user
+*.suo
+*.userprefs
+*.nupkg
+*.snupkg
+packages/
+**/appsettings.Development.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
