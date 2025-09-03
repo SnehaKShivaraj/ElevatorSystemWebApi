@@ -32,6 +32,22 @@ public class Elevator
     }
     public bool HasUpRequests => UpRequests.Count > 0;
     public bool HasDownRequests => DownRequests.Count > 0;
+    private void AddUpRequest(int floor)
+    {
+        lock (_lock)
+        {
+            UpRequests.Add(floor);
+
+        }
+    }
+    private void AddDownRequest(int floor)
+    {
+        lock (_lock)
+        {
+            DownRequests.Add(floor);
+
+        }
+    }
     public void AddFloorRequest(int floor)
     {
         if (CurrentFloor == floor)
@@ -41,29 +57,14 @@ public class Elevator
 
         if (floor > CurrentFloor)
         {
-            lock (_lock)
-            {
-                UpRequests.Add(floor);
-
-            }
+            AddUpRequest(floor);
         }
         else
         {
-            lock (_lock)
-            {
-                DownRequests.Add(floor);
-            }
+            AddDownRequest(floor);
         }
 
-
-
-        if (CurrentState is IdleState)
-        {
-            if (UpRequests.Count > 0)
-                ChangeState(new MovingUpState(), EDirection.Up);
-            else if (DownRequests.Count > 0)
-                ChangeState(new MovingDownState(), EDirection.Down);
-        }
+        CurrentState.HandleRequest(this);
     }
     public void AddFloorRequest(int floor, EDirection direction)
     {
@@ -74,29 +75,14 @@ public class Elevator
 
         if (direction == EDirection.Up)
         {
-            lock (_lock)
-            {
-                UpRequests.Add(floor);
-
-            }
+            AddUpRequest(floor);
         }
         else
         {
-            lock (_lock)
-            {
-                DownRequests.Add(floor);
-            }
+            AddDownRequest(floor);
+
         }
-
-
-
-        if (CurrentState is IdleState)
-        {
-            if (UpRequests.Count > 0)
-                ChangeState(new MovingUpState(), EDirection.Up);
-            else if (DownRequests.Count > 0)
-                ChangeState(new MovingDownState(), EDirection.Down);
-        }
+        CurrentState.HandleRequest(this);
     }
     public void IncrementFloor()
     {
@@ -131,10 +117,6 @@ public class Elevator
         }
         return removed;
     }
-    public void MoveOneStep()
-    {
-        CurrentState.Move(this);
-    }
 
     public void ChangeState(IElevatorState newState, EDirection newDirection)
     {
@@ -142,13 +124,8 @@ public class Elevator
         {
             CurrentState = newState;
             this.Direction = newDirection;
-            //if (newDirection != EDirection.Idle)
-            //Console.WriteLine($"Elevator changed to {newDirection} state at floor {CurrentFloor}");
-            //Task.Run(() => CurrentState.Move(this));
         }
     }
-    public bool IsCancellationRequested => cts.Token.IsCancellationRequested;
-    public CancellationToken Token => cts.Token;
 
     public void Stop()
     {

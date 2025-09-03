@@ -20,6 +20,11 @@ builder.Services.AddSingleton<IElevatorService>(sp =>
     var settings = sp.GetRequiredService<IOptions<ElevatorSettings>>().Value;
     return new ElevatorService(logger, settings);
 });
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+// Register the hosted service that will manage starting/stopping elevators
+builder.Services.AddHostedService<ElevatorHostedService>();
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -30,8 +35,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Logging.AddConsole();
-builder.Logging.AddDebug();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen((c) =>
 {

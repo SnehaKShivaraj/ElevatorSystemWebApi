@@ -165,30 +165,8 @@ public class ElevatorService : IElevatorService
         return nearestElevator;
     }
 
-    private void Start(Elevator elevator)
+    public IEnumerable<Elevator> GetElevators()
     {
-        Task.Run(async () =>
-        {
-            while (!elevator.IsCancellationRequested)
-            {
-                _logger.LogInformation($"elevator id- {elevator.Id} - state - {elevator.CurrentState}");
-                if (elevator.CurrentState is IdleState)
-                {
-                    // nothing to do, check again later
-                    await Task.Delay(500, elevator.Token);
-                    continue;
-                }
-                int prevFloor = elevator.CurrentFloor;
-                // let current state handle moving
-                await Task.Run(() => elevator.CurrentState.Move(elevator), elevator.Token);
-                if (elevator.CurrentFloor != prevFloor)
-                {
-                    _logger.LogInformation($"Elevator {elevator.Id} moved from floor {prevFloor} to {elevator.CurrentFloor}");
-                }
-                _logger.LogInformation($"Elevator {elevator.Id} pending up: {string.Join(',', elevator.UpRequests)} pending down: {string.Join(',', elevator.DownRequests)}");
-                // short pause to prevent tight loop
-                await Task.Delay(100, elevator.Token);
-            }
-        }, elevator.Token);
+        return _elevators;
     }
 }

@@ -6,7 +6,8 @@ namespace ElevatorControlSystem.Core;
 public interface IElevatorService
 {
     ElevatorSettings GetElevatorSettings();
-    IEnumerable<ElevatorDetailsResponseDto> GetElevatorsDetailsState(); 
+    IEnumerable<ElevatorDetailsResponseDto> GetElevatorsDetailsState();
     CallElevatorResponseDto AddExternalRequestAsync(int floor, EDirection direction);
     CallElevatorResponseDto AddInternalRequestAsync(int elevatorId, int floor);
+    IEnumerable<Elevator> GetElevators();
 }
