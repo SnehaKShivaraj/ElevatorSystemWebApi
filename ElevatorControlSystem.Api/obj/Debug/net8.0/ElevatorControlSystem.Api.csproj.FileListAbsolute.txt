@@ -68,6 +68,7 @@
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Api/obj/Debug/net8.0/ElevatorControlSystem.Api.csproj.CoreCompileInputs.cache
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Api/obj/Debug/net8.0/ElevatorControlSystem.Api.MvcApplicationPartsAssemblyInfo.cs
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Api/obj/Debug/net8.0/ElevatorControlSystem.Api.MvcApplicationPartsAssemblyInfo.cache
+/Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Api/obj/Debug/net8.0/ElevatorControlSystem.Api.sourcelink.json
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Api/obj/Debug/net8.0/staticwebassets.build.json
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Api/obj/Debug/net8.0/staticwebassets.development.json
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Api/obj/Debug/net8.0/staticwebassets/msbuild.ElevatorControlSystem.Api.Microsoft.AspNetCore.StaticWebAssets.props

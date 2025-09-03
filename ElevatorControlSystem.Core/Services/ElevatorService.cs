@@ -67,7 +67,7 @@ public class ElevatorService : IElevatorService
         if (_elevators.Any(e => (e.UpRequests.Contains(floor) && e.Direction == direction)
         || (e.DownRequests.Contains(floor) && e.Direction == direction)))
         {
-            response.Errors = new List<EElevatorQueueError> {EElevatorQueueError.ElevatorIsAlreaadyServing };
+            response.Errors = new List<EElevatorQueueError> { EElevatorQueueError.ElevatorIsAlreaadyServing };
             return response;
         }
         var elevator = SelectElevator(floor, direction);
@@ -123,15 +123,46 @@ public class ElevatorService : IElevatorService
 
     private Elevator? SelectElevator(int floor, EDirection direction)
     {
-        // TODO: you can refine the strategy later (nearest elevator, load balancing, etc.)
-        Elevator? idleElevator = _elevators.FirstOrDefault(i => i.Direction == EDirection.Idle);
+        // 1️⃣ Elevators moving in the requested direction and can serve the request
+        var movingElevator = _elevators
+            .Where(e => e.Direction == direction)
+            .Where(e => (direction == EDirection.Up && e.CurrentFloor <= floor) ||
+                        (direction == EDirection.Down && e.CurrentFloor >= floor))
+            .OrderBy(e => Math.Abs(e.CurrentFloor - floor))
+            .ThenBy(e => e.UpRequests.Count + e.DownRequests.Count) // load balancing
+            .FirstOrDefault();
+
+        if (movingElevator != null)
+        {
+            _logger.LogInformation($"Found moving elevator - {movingElevator.Id} for request {floor} - direction {direction}");
+            return movingElevator;
+        }
+
+        // 2️⃣ Idle elevators
+        var idleElevator = _elevators
+            .Where(e => e.Direction == EDirection.Idle)
+            .OrderBy(e => Math.Abs(e.CurrentFloor - floor))
+            .ThenBy(e => e.UpRequests.Count + e.DownRequests.Count) // load balancing
+            .FirstOrDefault();
+
         if (idleElevator != null)
         {
+            _logger.LogInformation($"Found idle elevator - {idleElevator.Id} for request {floor} - direction {direction}");
             return idleElevator;
         }
-        return _elevators
-                .OrderBy(e => Math.Abs(e.CurrentFloor - floor))
-                .FirstOrDefault();
+
+        // 3️⃣ Nearest elevator regardless of direction (even if moving opposite)
+        var nearestElevator = _elevators
+            .OrderBy(e => Math.Abs(e.CurrentFloor - floor))
+            .ThenBy(e => e.UpRequests.Count + e.DownRequests.Count) // load balancing
+            .FirstOrDefault();
+
+        if (nearestElevator != null)
+        {
+            _logger.LogInformation($"Found nearest elevator - {nearestElevator.Id} for request {floor} - direction {direction}");
+        }
+
+        return nearestElevator;
     }
 
     private void Start(Elevator elevator)

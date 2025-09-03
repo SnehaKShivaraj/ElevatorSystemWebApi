@@ -18,6 +18,7 @@
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core/obj/Debug/net8.0/ElevatorControlSystem.Core.AssemblyInfoInputs.cache
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core/obj/Debug/net8.0/ElevatorControlSystem.Core.AssemblyInfo.cs
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core/obj/Debug/net8.0/ElevatorControlSystem.Core.csproj.CoreCompileInputs.cache
+/Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core/obj/Debug/net8.0/ElevatorControlSystem.Core.sourcelink.json
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core/obj/Debug/net8.0/ElevatorControlSystem.Core.dll
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core/obj/Debug/net8.0/refint/ElevatorControlSystem.Core.dll
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core/obj/Debug/net8.0/ElevatorControlSystem.Core.pdb

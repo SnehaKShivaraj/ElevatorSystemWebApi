@@ -212,6 +212,7 @@
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core.Tests/obj/Debug/net8.0/ElevatorControlSystem.Core.Tests.AssemblyInfoInputs.cache
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core.Tests/obj/Debug/net8.0/ElevatorControlSystem.Core.Tests.AssemblyInfo.cs
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core.Tests/obj/Debug/net8.0/ElevatorControlSystem.Core.Tests.csproj.CoreCompileInputs.cache
+/Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core.Tests/obj/Debug/net8.0/ElevatorControlSystem.Core.Tests.sourcelink.json
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core.Tests/obj/Debug/net8.0/Elevator.EC8187B3.Up2Date
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core.Tests/obj/Debug/net8.0/ElevatorControlSystem.Core.Tests.dll
 /Users/sneha/Documents/Code/Angular/ElevatorSystemWebApi/ElevatorControlSystem.Core.Tests/obj/Debug/net8.0/refint/ElevatorControlSystem.Core.Tests.dll
