@@ -12,8 +12,8 @@ public class Elevator
     public int TimeToTravelOneFloorInMilliSeconds { get; set; }
     public EDirection Direction { get; private set; }
     public bool IsMoving => Direction != EDirection.Idle;
-    public HashSet<int> UpRequests { get; private set; }
-    public HashSet<int> DownRequests { get; private set; }
+    public SortedSet<int> UpRequests { get; private set; }
+    public SortedSet<int> DownRequests { get; private set; }
     public IElevatorState CurrentState { get; private set; }
     private CancellationTokenSource cts = new();
     private readonly object _lock = new object();
@@ -26,28 +26,13 @@ public class Elevator
         TimeToTravelOneFloorInMilliSeconds = elevatorSettings.TimeToTravelOneFloorInSeconds * 1000;
         MaxFloor = elevatorSettings.MaxFloor;
         MinFloor = elevatorSettings.MinFloor;
-        UpRequests = new HashSet<int>();
-        DownRequests = new HashSet<int>();
+        UpRequests = new SortedSet<int>();
+        DownRequests = new SortedSet<int>(Comparer<int>.Create((a, b) => b.CompareTo(a)));
         this.CurrentState = new IdleState();
     }
     public bool HasUpRequests => UpRequests.Count > 0;
     public bool HasDownRequests => DownRequests.Count > 0;
-    private void AddUpRequest(int floor)
-    {
-        lock (_lock)
-        {
-            UpRequests.Add(floor);
 
-        }
-    }
-    private void AddDownRequest(int floor)
-    {
-        lock (_lock)
-        {
-            DownRequests.Add(floor);
-
-        }
-    }
     public void AddFloorRequest(int floor)
     {
         if (CurrentFloor == floor)
@@ -72,17 +57,7 @@ public class Elevator
         {
             return;
         }
-
-        if (direction == EDirection.Up)
-        {
-            AddUpRequest(floor);
-        }
-        else
-        {
-            AddDownRequest(floor);
-
-        }
-        CurrentState.HandleRequest(this);
+        AddFloorRequest(floor);
     }
     public void IncrementFloor()
     {
@@ -141,6 +116,22 @@ public class Elevator
                 await Task.Delay(500, cts.Token); // short pause
             }
         }, cts.Token);
+    }
+    private void AddUpRequest(int floor)
+    {
+        lock (_lock)
+        {
+            UpRequests.Add(floor);
+
+        }
+    }
+    private void AddDownRequest(int floor)
+    {
+        lock (_lock)
+        {
+            DownRequests.Add(floor);
+
+        }
     }
 
 }

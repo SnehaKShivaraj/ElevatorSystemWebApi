@@ -4,36 +4,49 @@ namespace ElevatorControlSystem.Core;
 
 public class MovingUpState : IElevatorState
 {
-    public void HandleRequest(Elevator elevator, int floor)
+    public void HandleRequest(Elevator elevator)
     {
-        if (elevator.CurrentFloor == floor)
+        if (elevator.HasUpRequests && elevator.CurrentFloor < elevator.MaxFloor)
         {
+            // Already moving up, do nothing
             return;
         }
-        elevator.AddFloorRequest(floor);
+        if (elevator.HasDownRequests)
+        {
+            // No more up requests, switch to moving down
+            elevator.ChangeState(new MovingDownState(), EDirection.Down);
+        }
+        else
+        {
+            // No requests, become idle
+            elevator.ChangeState(new IdleState(), EDirection.Idle);
+        }
     }
 
     public async Task Move(Elevator elevator)
     {
-        while (elevator.HasUpRequests && elevator.CurrentFloor < elevator.MaxFloor)
+        if (!elevator.HasUpRequests)
         {
-            elevator.IncrementFloor();
-            await Task.Delay(elevator.TimeToTravelOneFloorInMilliSeconds); // better: async instead of Thread.Sleep
-
-            if (elevator.TryRemoveUpRequestFloor(elevator.CurrentFloor))
-            {
-                await Task.Delay(elevator.TimeOnFloorInMilliSeconds);
-            }
+            HandleRequest(elevator);
+            return;
         }
 
-        if (elevator.HasDownRequests)
-            {
-                elevator.ChangeState(new MovingDownState(), EDirection.Down);
-            }
-            else
-            {
-                elevator.ChangeState(new IdleState(), EDirection.Idle);
-            }
+        var target = elevator.UpRequests.Min;  // smallest floor request
+
+        if (target > elevator.CurrentFloor)
+        {
+            elevator.IncrementFloor();
+            await Task.Delay(elevator.TimeToTravelOneFloorInMilliSeconds);
+        }
+
+        if (elevator.CurrentFloor == target && elevator.TryRemoveUpRequestFloor(target))
+        {
+            await Task.Delay(elevator.TimeOnFloorInMilliSeconds);
+        }
+
+        // After one step, re-evaluate
+    if(!elevator.HasUpRequests)
+        HandleRequest(elevator);
     }
 
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ElevatorControlSystem.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d7e037720e244f883c1d4704fac8666ae10a1eec")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+99d5e81911b733b5d361c098a6c1796d19b4286e")]
 [assembly: System.Reflection.AssemblyProductAttribute("ElevatorControlSystem.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ElevatorControlSystem.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

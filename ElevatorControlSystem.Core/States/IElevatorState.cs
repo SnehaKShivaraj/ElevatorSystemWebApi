@@ -4,6 +4,6 @@ namespace ElevatorControlSystem.Core;
 
 public interface IElevatorState
 {
-    void HandleRequest(Elevator elevator, int floor);
+    void HandleRequest(Elevator elevator);
     Task Move(Elevator elevator); 
 }
